@@ -28,6 +28,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer("Data Source=.;Initial Catalog=AistDb;Integrated Security=true;TrustServerCertificate=true"));
@@ -63,6 +64,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

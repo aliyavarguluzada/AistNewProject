@@ -52,12 +52,13 @@ namespace AistNewProject.Services
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
+                ValidateIssuer = true,
+                ValidateAudience = true
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userid = jwtToken.Claims.First(c => c.Type == "id").Value;
+            var jti = jwtToken.Claims.First(x => x.Type == "jti").Value;
 
             return token;
         }
