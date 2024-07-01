@@ -18,7 +18,14 @@ namespace AistNewProject.Services
 
         public async Task<string> Login(LoginRequest request)
         {
-            var user = await _context.Users.Where(c => c.Email == request.Email).FirstOrDefaultAsync();
+            if (request.Email == string.Empty || request.Password == string.Empty)
+                return "Email or password is wrong";
+
+
+            var user = await _context.Users.Where(c => c.Email == request.Email).FirstAsync();
+
+            if (user is null)
+                return "No such User Exists";
 
             var validatePass = user.VerifyPassword(request.Password);
 
